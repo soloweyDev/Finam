@@ -3,6 +3,8 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace Finam
 {
@@ -23,12 +25,14 @@ namespace Finam
             SqlConnection connection = null;
             try
             {
-                connection = new SqlConnection("Data Source=DESKTOP-MY\\SQLEXPRESS;Initial Catalog=Finam;Integrated Security=True");
+                connection = new SqlConnection("Data Source=localhost\\SQLEXPRESS;Initial Catalog=Finam;Integrated Security=True");
                 SqlCommand command = new SqlCommand(sql, connection);
-                adapter = new SqlDataAdapter(command);
+                adapter = new SqlDataAdapter(command)
+                {
 
-                // установка команды на добавление для вызова хранимой процедуры
-                adapter.InsertCommand = new SqlCommand("spGetChart", connection);
+                    // установка команды на добавление для вызова хранимой процедуры
+                    InsertCommand = new SqlCommand("spGetChart", connection)
+                };
                 adapter.InsertCommand.CommandType = CommandType.StoredProcedure;
 
                 connection.Open();
@@ -46,12 +50,44 @@ namespace Finam
             }
         }
 
-        struct ChartStruct
+        private void dg_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
-            decimal Open;
-            decimal High;
-            decimal Low;
-            decimal Close;
+            DataGrid dg = sender as DataGrid;
+            var arrayObjects = (dg.SelectedItem as DataRowView).Row.ItemArray;
+
+            double step = 200.0;
+            double open = Convert.ToDouble((decimal)arrayObjects[4]);
+            double high = Convert.ToDouble((decimal)arrayObjects[5]);
+            double low = Convert.ToDouble((decimal)arrayObjects[6]);
+            double close = Convert.ToDouble((decimal)arrayObjects[7]);
+
+            Open.Content = arrayObjects[4].ToString();
+            High.Content = arrayObjects[5].ToString();
+            Low.Content = arrayObjects[6].ToString();
+            Close.Content = arrayObjects[7].ToString();
+
+            if (open > close)
+            {
+                Color color =  Colors.Red;
+                Line.Stroke = new SolidColorBrush(color);
+
+                double delta = (open - close) * step / (high - low);
+                Rectangle.Height = delta != 0 ? delta : 1;
+
+                Rectangle.RenderTransform = new TranslateTransform(0, (high - open) * step / (high - low));
+                Rectangle.Fill = new SolidColorBrush(color);
+            }
+            else
+            {
+                Color color =  Colors.Green;
+                Line.Stroke = new SolidColorBrush(color);
+
+                double delta = (close - open) * step / (high - low);
+                Rectangle.Height = delta != 0 ? delta : 1;
+
+                Rectangle.RenderTransform = new TranslateTransform(0, (high - close) * step / (high - low));
+                Rectangle.Fill = new SolidColorBrush(color);
+            }
         }
     }
 }
