@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -50,7 +49,7 @@ namespace Finam
             }
         }
 
-        private void dg_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        private void dg_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             DataGrid dg = sender as DataGrid;
             var arrayObjects = (dg.SelectedItem as DataRowView).Row.ItemArray;
