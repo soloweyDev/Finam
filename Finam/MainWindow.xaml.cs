@@ -88,5 +88,11 @@ namespace Finam
                 Rectangle.Fill = new SolidColorBrush(color);
             }
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Chart chart = new Chart(chartTable);
+            chart.Show();
+        }
     }
 }

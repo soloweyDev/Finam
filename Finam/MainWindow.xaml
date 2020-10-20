@@ -5,11 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Finam"
         mc:Ignorable="d"
-        Title="MainWindow" Height="590.4" Width="800">
+        Title="Finam" Height="600" Width="800" WindowStyle="ToolWindow" ResizeMode="NoResize" ShowInTaskbar="False">
     <Grid>
         <Line x:Name="Line"  X1="100" Y1="100" X2="100" Y2="300" Stroke="Black" StrokeThickness="3"/>
         <Rectangle x:Name="Rectangle" Width="50" Height="100" Margin="75,100,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Fill="Black"/>
-        <DataGrid x:Name="dg" HorizontalAlignment="Left" Height="540" Margin="199,10,0,0" VerticalAlignment="Top" Width="583" SelectionChanged="dg_SelectionChanged"/>
+        <DataGrid x:Name="dg" HorizontalAlignment="Left" Height="550" Margin="199,10,0,0" VerticalAlignment="Top" Width="583" SelectionChanged="dg_SelectionChanged"/>
         <Label Content="Open:" HorizontalAlignment="Left" Margin="25,375,0,0" VerticalAlignment="Top"/>
         <Label Content="High:" HorizontalAlignment="Left" Margin="25,400,0,0" VerticalAlignment="Top"/>
         <Label Content="Low:" HorizontalAlignment="Left" Margin="25,425,0,0" VerticalAlignment="Top"/>
@@ -18,5 +18,6 @@
         <Label x:Name="High" HorizontalAlignment="Left" Margin="60,400,0,0" VerticalAlignment="Top"/>
         <Label x:Name="Low" HorizontalAlignment="Left" Margin="60,425,0,0" VerticalAlignment="Top"/>
         <Label x:Name="Close" HorizontalAlignment="Left" Margin="60,450,0,0" VerticalAlignment="Top"/>
+        <Button Content="Graph" Width="150" Height="30" Margin="25,520,0,0" Click="Button_Click" HorizontalAlignment="Left" VerticalAlignment="Top" />
     </Grid>
 </Window>
