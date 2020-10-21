@@ -28,7 +28,7 @@ namespace Finam
 
             SeriesCollection = new SeriesCollection
             {
-                new OhlcSeries()
+                new CandleSeries()
                 {
                     Values = ohlcPoints
                 }
